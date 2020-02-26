@@ -1,19 +1,13 @@
-import React from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  StyleSheet,
-  TouchableOpacity
-} from "react-native";
-import TodoEntry from "../model/TodoEntry";
 import { Feather } from "@expo/vector-icons";
-import darkMode from "../helpers/darkMode";
+import React from "react";
+import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import {
   DynamicStyleSheet,
   DynamicValue,
   useDynamicStyleSheet
 } from "react-native-dark-mode";
+import darkMode from "../helpers/darkMode";
+import TodoEntry from "../model/TodoEntry";
 
 interface ListItemProps {
   item: TodoEntry;
@@ -83,9 +77,7 @@ export default function TodoList({ items, checkItem }: TodoListProps) {
         )}
         keyExtractor={item => item.id}
         keyboardDismissMode="on-drag"
-        style={{
-          paddingTop: 70
-        }}
+        contentContainerStyle={{ paddingTop: 70 }}
       />
     </View>
   );
