@@ -1,4 +1,5 @@
 export default interface TodoEntry {
-  description: string;
+  id: string;
+  text: string;
   done: boolean;
 }
