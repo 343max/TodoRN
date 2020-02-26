@@ -17,12 +17,12 @@ import {
 
 interface ListItemProps {
   item: TodoEntry;
+  styles: any;
   checkItem(id: string, done: boolean): void;
 }
 
-function ListItem({ item, checkItem }: ListItemProps) {
+function ListItem({ item, checkItem, styles }: ListItemProps) {
   const iconName = item.done ? "check-square" : "square";
-  const styles = useDynamicStyleSheet(dynamicItemStyles);
 
   return (
     <View style={styles.row}>
@@ -64,6 +64,7 @@ interface TodoListProps {
 }
 
 export default function TodoList({ items, checkItem }: TodoListProps) {
+  const cellStyles = useDynamicStyleSheet(dynamicItemStyles);
   return (
     <View
       style={{
@@ -78,7 +79,7 @@ export default function TodoList({ items, checkItem }: TodoListProps) {
       <FlatList
         data={items}
         renderItem={({ item }) => (
-          <ListItem item={item} checkItem={checkItem} />
+          <ListItem item={item} checkItem={checkItem} styles={cellStyles} />
         )}
         keyExtractor={item => item.id}
         contentInset={{ top: 70, left: 0, bottom: 0, right: 0 }}
