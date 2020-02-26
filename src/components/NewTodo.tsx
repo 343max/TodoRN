@@ -23,10 +23,10 @@ export default function NewTodo(props: NewTodoProps) {
 
   const submit = () => {
     if (value == "") {
+      Keyboard.dismiss();
       return;
     }
     props.addItem(value);
-    Keyboard.dismiss();
     setValue("");
   };
 

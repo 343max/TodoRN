@@ -25,10 +25,21 @@ export default function Home() {
     setItems([entry].concat(items));
   };
 
+  const checkItem = (id: string, done: boolean) => {
+    setItems(
+      items.map(entry => {
+        if (entry.id == id) {
+          entry.done = done;
+        }
+        return entry;
+      })
+    );
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <NewTodo addItem={addItem} />
-      <TodoList items={items} />
+      <TodoList items={items} checkItem={checkItem} />
     </View>
   );
 }

@@ -19,7 +19,11 @@ export default function App() {
     <AppearanceProvider>
       <NavigationContainer theme={darkMode() ? DarkTheme : DefaultTheme}>
         <Stack.Navigator>
-          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{ title: "☑ Todo" }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </AppearanceProvider>

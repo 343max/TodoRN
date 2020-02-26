@@ -15,17 +15,21 @@ import {
   useDynamicStyleSheet
 } from "react-native-dark-mode";
 
-interface TodoListProps {
-  items: TodoEntry[];
+interface ListItemProps {
+  item: TodoEntry;
+  checkItem(id: string, done: boolean): void;
 }
 
-function ListItem({ item }: { item: TodoEntry }) {
+function ListItem({ item, checkItem }: ListItemProps) {
   const iconName = item.done ? "check-square" : "square";
   const styles = useDynamicStyleSheet(dynamicItemStyles);
 
   return (
     <View style={styles.row}>
-      <TouchableOpacity style={styles.touchable}>
+      <TouchableOpacity
+        style={styles.touchable}
+        onPress={() => checkItem(item.id, !item.done)}
+      >
         <Feather
           name={iconName}
           size={20}
@@ -39,18 +43,27 @@ function ListItem({ item }: { item: TodoEntry }) {
 
 const dynamicItemStyles = new DynamicStyleSheet({
   row: {
-    padding: 14,
     borderBottomWidth: 1,
     borderBottomColor: new DynamicValue("#ddd", "#222")
   },
-  touchable: { flex: 1, flexDirection: "row", alignItems: "center" },
+  touchable: {
+    padding: 14,
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center"
+  },
   text: {
     color: new DynamicValue("#000", "#fff"),
     marginLeft: 6
   }
 });
 
-export default function TodoList({ items }: TodoListProps) {
+interface TodoListProps {
+  items: TodoEntry[];
+  checkItem(id: string, done: boolean): void;
+}
+
+export default function TodoList({ items, checkItem }: TodoListProps) {
   return (
     <View
       style={{
@@ -64,7 +77,9 @@ export default function TodoList({ items }: TodoListProps) {
     >
       <FlatList
         data={items}
-        renderItem={({ item }) => <ListItem item={item} />}
+        renderItem={({ item }) => (
+          <ListItem item={item} checkItem={checkItem} />
+        )}
         keyExtractor={item => item.id}
         contentInset={{ top: 70, left: 0, bottom: 0, right: 0 }}
         keyboardDismissMode="on-drag"
