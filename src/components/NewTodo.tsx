@@ -64,6 +64,7 @@ const dynamicStyles = new DynamicStyleSheet({
     bottom: 0
   },
   inputBar: {
+    elevation: 10,
     flexDirection: "row",
     alignItems: "center",
     margin: 10,
@@ -71,9 +72,9 @@ const dynamicStyles = new DynamicStyleSheet({
     padding: 8,
     backgroundColor: new DynamicValue("#fff", "#111"),
     borderRadius: 30,
-    shadowOffset: { width: 0, height: 6 },
+    shadowOffset: { width: 0, height: 3 },
     shadowColor: new DynamicValue("#000", "#000"),
-    shadowOpacity: new DynamicValue(0.3, 0.0),
+    shadowOpacity: new DynamicValue(0.2, 0.0),
     shadowRadius: 6,
     borderWidth: new DynamicValue(0, 1),
     borderColor: "#222",
