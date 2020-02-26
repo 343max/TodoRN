@@ -1,25 +1,51 @@
 import { Entypo } from "@expo/vector-icons";
-import React from "react";
-import { SafeAreaView, TextInput, TouchableOpacity, View } from "react-native";
+import React, { useState } from "react";
+import {
+  SafeAreaView,
+  TextInput,
+  TouchableOpacity,
+  View,
+  Keyboard
+} from "react-native";
 import {
   DynamicStyleSheet,
   DynamicValue,
   useDynamicStyleSheet
 } from "react-native-dark-mode";
 
-export default function(props) {
+interface NewTodoProps {
+  addItem(text: string): void;
+}
+
+export default function NewTodo(props: NewTodoProps) {
   const styles = useDynamicStyleSheet(dynamicStyles);
+  const [value, setValue] = useState("");
+
+  const submit = () => {
+    if (value == "") {
+      return;
+    }
+    props.addItem(value);
+    Keyboard.dismiss();
+    setValue("");
+  };
 
   return (
     <SafeAreaView style={styles.container} pointerEvents="box-none">
       <View style={styles.inputBar}>
         <TextInput
-          placeholder="Enter Todo…"
+          placeholder="Add Todo…"
           style={styles.textInputs}
           returnKeyType="send"
+          value={value}
+          onChangeText={text => setValue(text)}
+          onSubmitEditing={submit}
+          blurOnSubmit={false}
         />
-        <TouchableOpacity>
-          <Entypo name="circle-with-plus" color="#0768da" size={30} />
+        <TouchableOpacity onPress={submit} disabled={value == ""}>
+          <View style={{ opacity: value == "" ? 0.3 : 1 }}>
+            <Entypo name="circle-with-plus" color="#0768da" size={30} />
+          </View>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -42,12 +68,14 @@ const dynamicStyles = new DynamicStyleSheet({
     margin: 10,
     marginHorizontal: 20,
     padding: 8,
-    backgroundColor: new DynamicValue("#fff", "#000"),
+    backgroundColor: new DynamicValue("#fff", "#111"),
     borderRadius: 30,
     shadowOffset: { width: 0, height: 6 },
-    shadowColor: new DynamicValue("#000", "#fff"),
-    shadowOpacity: 0.4,
-    shadowRadius: 10
+    shadowColor: new DynamicValue("#000", "#000"),
+    shadowOpacity: new DynamicValue(0.3, 0.0),
+    shadowRadius: 6,
+    borderWidth: new DynamicValue(0, 1),
+    borderColor: "#222"
   },
   textInputs: {
     flex: 1,

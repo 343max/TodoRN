@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, View } from "react-native";
 import {
   DynamicStyleSheet,
@@ -9,14 +9,13 @@ import NewTodo from "./NewTodo";
 import TodoList from "./TodoList";
 import testData from "../model/TestData";
 
-let listItems = testData();
-
 export default function Home() {
+  const [items, setItems] = useState(testData());
   const styles = useDynamicStyleSheet(dynamicStyles);
   return (
     <View style={{ flex: 1 }}>
-      <NewTodo />
-      <TodoList items={listItems} />
+      <NewTodo addItem={text => console.log(text)} />
+      <TodoList items={items} />
     </View>
   );
 }

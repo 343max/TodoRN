@@ -1,7 +1,14 @@
 import React from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity
+} from "react-native";
 import TodoEntry from "../model/TodoEntry";
 import { Feather } from "@expo/vector-icons";
+import darkMode from "../helpers/darkMode";
 import {
   DynamicStyleSheet,
   DynamicValue,
@@ -18,8 +25,14 @@ function ListItem({ item }: { item: TodoEntry }) {
 
   return (
     <View style={styles.row}>
-      <Feather name={iconName} size={20} color="#999" />
-      <Text style={styles.text}>{item.text}</Text>
+      <TouchableOpacity style={styles.touchable}>
+        <Feather
+          name={iconName}
+          size={20}
+          color={darkMode() ? "#444" : "#999"}
+        />
+        <Text style={styles.text}>{item.text}</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -27,12 +40,10 @@ function ListItem({ item }: { item: TodoEntry }) {
 const dynamicItemStyles = new DynamicStyleSheet({
   row: {
     padding: 14,
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
     borderBottomWidth: 1,
-    borderBottomColor: "#ddd"
+    borderBottomColor: new DynamicValue("#ddd", "#222")
   },
+  touchable: { flex: 1, flexDirection: "row", alignItems: "center" },
   text: {
     color: new DynamicValue("#000", "#fff"),
     marginLeft: 6
