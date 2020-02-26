@@ -5,7 +5,8 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  Keyboard
+  Keyboard,
+  Platform
 } from "react-native";
 import {
   DynamicStyleSheet,
@@ -75,7 +76,12 @@ const dynamicStyles = new DynamicStyleSheet({
     shadowOpacity: new DynamicValue(0.3, 0.0),
     shadowRadius: 6,
     borderWidth: new DynamicValue(0, 1),
-    borderColor: "#222"
+    borderColor: "#222",
+    ...Platform.select({
+      android: {
+        paddingVertical: 0
+      }
+    })
   },
   textInputs: {
     flex: 1,

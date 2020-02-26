@@ -82,8 +82,10 @@ export default function TodoList({ items, checkItem }: TodoListProps) {
           <ListItem item={item} checkItem={checkItem} styles={cellStyles} />
         )}
         keyExtractor={item => item.id}
-        contentInset={{ top: 70, left: 0, bottom: 0, right: 0 }}
         keyboardDismissMode="on-drag"
+        style={{
+          paddingTop: 70
+        }}
       />
     </View>
   );
